@@ -50,12 +50,11 @@ public class ActorAI : MonoBehaviour
     public AudioClip[] attackHitClips;
     public AudioClip[] attackMissClips;
 
-    [Header("Perception / Stealth (Enemies only)")]
+    [Header("Perception (Enemies only)")]
     public float visionRange = 12f;          // head-based FOV range
     [Range(0, 180)] public float visionFOV = 60f; // half-angle in degrees
     public float closeSightRange = 2.5f;     // body-based short cone
     [Range(0, 180)] public float closeSightFOV = 160f; // half-angle
-    public float hearBonus = 0f;             // flat extra noise radius
     public Transform headTransform;          // eye/head for LOS ray
     public float eyeRayDistance = 12f;
 
@@ -100,7 +99,6 @@ public class ActorAI : MonoBehaviour
     // perception (enemies only)
     private bool isAlerted = false;
     private bool canCurrentlySeePlayer = false;
-    private bool canCurrentlyHearPlayer = false;
 
     // footsteps
     private float nextStepTime = 0f;
@@ -119,7 +117,6 @@ public class ActorAI : MonoBehaviour
     private bool gizHeadConeHasPlayer, gizHeadHasLOS;
     private Vector3 gizBodyPos, gizBodyDir;
     private bool gizBodyConeHasPlayer, gizBodyHasLOS;
-    private float gizHearRadius; private bool gizPlayerAudible;
 
     // Dialogue global override
     private bool dialogueOverride = false;
@@ -253,22 +250,19 @@ public class ActorAI : MonoBehaviour
     void UpdatePerception()
     {
         canCurrentlySeePlayer = false;
-        canCurrentlyHearPlayer = false;
 
         // reset gizmos
         gizHeadPos = gizBodyPos = Vector3.zero;
         gizHeadDir = gizBodyDir = Vector3.forward;
         gizHeadConeHasPlayer = gizHeadHasLOS = false;
         gizBodyConeHasPlayer = gizBodyHasLOS = false;
-        gizHearRadius = 0f; gizPlayerAudible = false;
 
         if (faction != Faction.Enemy) return;
         if (!targetPlayer) return;
 
         UpdateVision();
-        UpdateHearing();
 
-        if (canCurrentlySeePlayer || canCurrentlyHearPlayer)
+        if (canCurrentlySeePlayer)
             isAlerted = true;
     }
 
@@ -329,31 +323,6 @@ public class ActorAI : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    void UpdateHearing()
-    {
-        var stealth = targetPlayer.GetComponent<PlayerStealth>();
-        if (!stealth) return;
-
-        float noise = stealth.GetCurrentNoiseRadius();
-        bool crouchStealth = stealth.IsInStealthKillMode(); // crouching toggle
-
-        if (crouchStealth || noise <= 0f)
-        {
-            gizHearRadius = 0f; gizPlayerAudible = false;
-            return;
-        }
-
-        float hearRange = noise + hearBonus;
-        gizHearRadius = hearRange;
-
-        float dist = Vector3.Distance(transform.position, targetPlayer.position);
-        if (dist <= hearRange)
-        {
-            canCurrentlyHearPlayer = true;
-            gizPlayerAudible = true;
         }
     }
 
@@ -736,23 +705,6 @@ public class ActorAI : MonoBehaviour
         return a;
     }
 
-    // ----- Stealth kill helper (enemies only) -----
-    public bool CanBeStealthKilledBy(Transform playerRoot, PlayerStealth stealth, float maxStealthKillDistance)
-    {
-        if (faction != Faction.Enemy) return false;
-        if (!stealth || !playerRoot) return false;
-        if (!stealth.IsInStealthKillMode()) return false;
-
-        float dist = Vector3.Distance(transform.position, playerRoot.position);
-        if (dist > maxStealthKillDistance) return false;
-
-        Vector3 toPlayer = (playerRoot.position - transform.position).normalized;
-        float dot = Vector3.Dot(transform.forward, toPlayer);
-        if (dot >= 0.25f) return false; // player must be generally behind
-
-        return true;
-    }
-
     // ----- Gizmos -----
     void OnDrawGizmosSelected()
     {
@@ -781,13 +733,6 @@ public class ActorAI : MonoBehaviour
                 Gizmos.color = gizBodyHasLOS ? Color.green : Color.red;
                 Gizmos.DrawLine(pos, targetPlayer.position);
             }
-        }
-
-        // hearing
-        if (gizHearRadius > 0f)
-        {
-            Gizmos.color = gizPlayerAudible ? new Color(0f, 1f, 1f, 0.25f) : new Color(0f, 0.5f, 1f, 0.1f);
-            Gizmos.DrawWireSphere(transform.position, gizHearRadius);
         }
 
         // chase range
