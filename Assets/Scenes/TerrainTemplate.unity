@@ -6709,29 +6709,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &914822630778755268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7228546003824904713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3fbf793bd37cc4ea09d7258e7a624b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isCrouching: 0
-  isRunning: 0
-  isWalking: 0
-  crouchNoiseRadius: 0
-  walkNoiseRadius: 6
-  runNoiseRadius: 10
-  standCamHeight: 1.7
-  crouchCamHeight: 1
-  crouchLerpSpeed: 8
-  cameraRoot: {fileID: 6133041539253622195}
-  controller: {fileID: 8614879119561972634}
 --- !u!114 &1002971049513802202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9405,7 +9382,6 @@ GameObject:
   - component: {fileID: 5203109585376221175}
   - component: {fileID: 1282834329440026421}
   - component: {fileID: 7010115066115701270}
-  - component: {fileID: 914822630778755268}
   m_Layer: 0
   m_Name: PlayerMkIII
   m_TagString: Player
