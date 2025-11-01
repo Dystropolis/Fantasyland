@@ -8183,14 +8183,14 @@ MonoBehaviour:
   damageReductionFactor: 0.5
   audioSource: {fileID: 5203109585376221175}
   swingClip: {fileID: 8300000, guid: 2991e0546903e8148ae007380d97533c, type: 3}
-  hitFleshClip: {fileID: 0}
-  hitStoneClip: {fileID: 0}
-  hitMetalClip: {fileID: 0}
-  blockClip: {fileID: 0}
-  missClip: {fileID: 0}
+  hitFleshClip: {fileID: 8300000, guid: 3829cf6c175ab184aa745787f760b34a, type: 3}
+  hitStoneClip: {fileID: 8300000, guid: 4ac608c55d6b088498836bd936ec56e4, type: 3}
+  hitMetalClip: {fileID: 8300000, guid: 6cce4a55f143925478c0b4de37569851, type: 3}
+  blockClip: {fileID: 8300000, guid: 4ac608c55d6b088498836bd936ec56e4, type: 3}
+  missClip: {fileID: 8300000, guid: 4ac608c55d6b088498836bd936ec56e4, type: 3}
   defaultHitFX: {fileID: 100002, guid: 20b31fcfaed0cb842a56fbbe2419428f, type: 3}
-  fleshHitFX: {fileID: 0}
-  stoneHitFX: {fileID: 0}
+  fleshHitFX: {fileID: 100002, guid: 20b31fcfaed0cb842a56fbbe2419428f, type: 3}
+  stoneHitFX: {fileID: 100002, guid: 20b31fcfaed0cb842a56fbbe2419428f, type: 3}
   metalHitFX: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   hitMask:
     serializedVersion: 2
