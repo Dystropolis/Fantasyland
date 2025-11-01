@@ -30,16 +30,10 @@ public class PlayerCombat : MonoBehaviour
     void HandleInput()
     {
         // Left click to attack
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && currentWeapon == swordWeapon && swordWeapon != null)
         {
-            if (swordWeapon != null)
-            {
-                swordWeapon.TrySwordAttack();
-            }
+            swordWeapon.TrySwordAttack();
         }
-
-        // We do NOT call DoHitCheck() here anymore.
-        // Damage happens on the animation event calling PerformHit().
     }
 
 
@@ -54,13 +48,19 @@ public class PlayerCombat : MonoBehaviour
 
     void HandleBlockInput()
     {
+        if (swordWeapon == null)
+            return;
+
         if (currentWeapon == swordWeapon)
         {
-            swordWeapon.blocking = Input.GetMouseButton(1);
+            if (Input.GetMouseButton(1))
+                swordWeapon.StartBlock();
+            else
+                swordWeapon.StopBlock();
         }
         else
         {
-            swordWeapon.blocking = false;
+            swordWeapon.StopBlock();
         }
     }
 
@@ -68,12 +68,15 @@ public class PlayerCombat : MonoBehaviour
     void EquipSword()
     {
         currentWeapon = swordWeapon;
+        swordWeapon.StopBlock();
         swordWeapon.gameObject.SetActive(true);
         Debug.Log("Equipped sword");
     }
 
     void EquipBow()
     {
+        currentWeapon = null;
+        swordWeapon.StopBlock();
         swordWeapon.gameObject.SetActive(false);
         Debug.Log("Equipped bow");
     }

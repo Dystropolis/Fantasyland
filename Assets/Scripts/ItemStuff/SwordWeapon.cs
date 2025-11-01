@@ -6,6 +6,11 @@ public class SwordWeapon : WeaponBase
     public float swordAttackRange = 2f;
     public int swordAttackDamage = 25;
     public float swordAttackCooldown = 0.6f;   // renamed from attackCooldown
+    [Header("Timing")]
+    [Tooltip("Delay before the swing resolves when auto timing is enabled.")]
+    public float attackImpactDelay = 0.25f;
+    [Tooltip("Automatically resolve the hit after the delay instead of relying on an animation event.")]
+    public bool autoResolveImpact = false;
 
     [Header("Blocking")]
     public bool blocking = false;
@@ -39,17 +44,6 @@ public class SwordWeapon : WeaponBase
             audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            TrySwordAttack();
-
-        if (Input.GetMouseButton(1))
-            StartBlock();
-        else
-            StopBlock();
-    }
-
     public void TrySwordAttack()
     {
         if (Time.time < nextAttackTime) return;
@@ -58,19 +52,44 @@ public class SwordWeapon : WeaponBase
         if (animator != null)
             animator.SetTrigger("Attack");
 
-        if (audioSource && swingClip)
-            audioSource.PlayOneShot(swingClip);
+        CancelInvoke(nameof(PerformDelayedImpact));
 
-        Invoke(nameof(DoHitCheck), 0.25f);
+        if (autoResolveImpact)
+        {
+            Invoke(nameof(PerformDelayedImpact), attackImpactDelay);
+        }
     }
 
     protected override void Attack() { }
 
+    void PerformDelayedImpact()
+    {
+        DoHitCheck();
+    }
+
     public void DoHitCheck()
     {
+        if (audioSource && swingClip)
+            audioSource.PlayOneShot(swingClip);
+
         RaycastHit hit;
-        Vector3 origin = Camera.main.transform.position;
-        Vector3 dir = Camera.main.transform.forward;
+        Camera cam = Camera.main;
+        if (cam == null)
+            cam = GetComponentInParent<Camera>();
+
+        Vector3 origin;
+        Vector3 dir;
+
+        if (cam != null)
+        {
+            origin = cam.transform.position;
+            dir = cam.transform.forward;
+        }
+        else
+        {
+            origin = transform.position;
+            dir = transform.forward;
+        }
 
         if (Physics.Raycast(origin, dir, out hit, swordAttackRange, hitMask))
         {
@@ -136,7 +155,7 @@ public class SwordWeapon : WeaponBase
             audioSource.PlayOneShot(hitFleshClip);
     }
 
-    void StartBlock()
+    public void StartBlock()
     {
         if (!blocking)
         {
@@ -146,7 +165,7 @@ public class SwordWeapon : WeaponBase
         }
     }
 
-    void StopBlock()
+    public void StopBlock()
     {
         if (blocking)
         {
