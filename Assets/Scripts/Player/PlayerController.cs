@@ -93,21 +93,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // If the world is paused, don't simulate gameplay movement/aiming.
-        // We still update frameVelocity at the end so stealth code doesn't explode.
         if (!worldPaused)
         {
             HandleLook();
             HandleMove();
         }
 
-        // Track velocity each frame for stealth noise calcs.
+        // Track velocity each frame for any systems that rely on motion data.
         Vector3 delta = transform.position - lastPosition;
         frameVelocity = (Time.deltaTime > 0f) ? delta / Time.deltaTime : Vector3.zero;
         frameVelocity.y = 0f;
         lastPosition = transform.position;
     }
 
-    // This is needed by PlayerStealth and AI hearing logic
+    // Provides horizontal velocity information for other systems.
     public Vector3 GetVelocityXZ()
     {
         return frameVelocity;
