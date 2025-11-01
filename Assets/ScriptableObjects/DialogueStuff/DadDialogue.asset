@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c488c6a300bac84a91b3d3779773501, type: 3}
+  m_Name: DadDialogue
+  m_EditorClassIdentifier: 
+  adlibClips:
+  - {fileID: 8300000, guid: cf08dcae3c7ff0a45a798b7c3e2fbcbc, type: 3}
+  - {fileID: 8300000, guid: 6d4a24cc880127f41a1cb4fb4dc45a0d, type: 3}
+  - {fileID: 8300000, guid: 5676ead44b35eca4781f1b417567d2a3, type: 3}
+  hasBeenPlayed: 1
+  dialogueVersion: 1
+  npcName: Dad
+  startNodeIndex: 0
+  nodes:
+  - npcLine: Hey son!
+    voiceClip: {fileID: 8300000, guid: f8da79f8b9e5ae24881cd06d43c08aea, type: 3}
+    responses:
+    - text: Hey dad, how's it going?
+      nextNode: 1
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: It's going well. How are you?
+    voiceClip: {fileID: 8300000, guid: 1b90ddc505297824c85f834c9b4723cd, type: 3}
+    responses:
+    - text: Doing good. Hey, where's Roger?
+      nextNode: 2
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: He's not here right now, uh... I think he went to a party or something.
+    voiceClip: {fileID: 8300000, guid: 2567043b67a242f4296460a9ba6f5459, type: 3}
+    responses:
+    - text: Oh, okay.
+      nextNode: 3
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: So, got anything cool happening in school?
+    voiceClip: {fileID: 8300000, guid: 6138461791a8315469447a6c91030c01, type: 3}
+    responses:
+    - text: No, not really. Ever since mom... passed away... I can't seem to enjoy
+        anything.
+      nextNode: 4
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: Oh. Yeah... I understand that. But hey, it'll get better. I promise.
+    voiceClip: {fileID: 8300000, guid: 1523cd943bec2d34f8d28a52a732bbf6, type: 3}
+    responses:
+    - text: Okay.
+      nextNode: 5
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: Love you, son.
+    voiceClip: {fileID: 8300000, guid: b56e4c74bf6a3764b8d769ad4cb7d184, type: 3}
+    responses:
+    - text: Love you too, dad.
+      nextNode: 6
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+    - text: Okay.
+      nextNode: 7
+      isExitButton: 0
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: Alright, now go get some rest. You got school tomorrow.
+    voiceClip: {fileID: 8300000, guid: 90219337ab9ee064f90094903d96d995, type: 3}
+    responses:
+    - text: Okay.
+      nextNode: 0
+      isExitButton: 1
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  - npcLine: Hmm... okay. Get to bed, you have school in the morning.
+    voiceClip: {fileID: 8300000, guid: a23f0fcc9bd05b84aaaa5686c3a6f222, type: 3}
+    responses:
+    - text: Okay.
+      nextNode: 0
+      isExitButton: 1
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+    - text: Whatever...
+      nextNode: 0
+      isExitButton: 1
+      action: 0
+      intParam: 0
+      floatParam: 0
+      setFlagOnClick: 0
+      flagName: 
+      flagValue: 1
+  isRepeatable: 0
+  postAction: 3
+  nextDialogue: {fileID: 0}
+  postSetActiveTargetIndex: 0
+  postSetActiveValue: 1
+  postFlagName: 
+  postFlagValue: 1

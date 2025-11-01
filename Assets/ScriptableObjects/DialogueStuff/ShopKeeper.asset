@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c488c6a300bac84a91b3d3779773501, type: 3}
+  m_Name: ShopKeeper
+  m_EditorClassIdentifier: 
+  npcLine: You look hurt. Want a potion?
+  playerResponse1: Not now.
+  playerResponse2: Yeah, heal me, bitch!
+  offersHealthPotion: 1
+  potionCostGems: 5
+  potionHealAmount: 30
